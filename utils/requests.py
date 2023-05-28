@@ -1,3 +1,2 @@
-class Request():
-	def __init__(self):
-		pass
+def route(url, handler):
+	return (url, handler)

@@ -1,6 +1,5 @@
 from utils.responses import TextResponse
-from utils.requests import Request
 
-def controller():
+def controller(request):
 	msg = "Hello, World!"
 	return TextResponse(msg)

@@ -1,3 +1,9 @@
+class Request():
+	def __init__(self, scope, request):
+		self.scope = scope
+		self.request = request
+		self.body = request['body'].decode('utf')
+
 class Latte():
 	def __init__(self):
 		self.routes = {}
@@ -8,10 +14,13 @@ class Latte():
 		path = scope['path']
 		flag = 0
 
+		request = Request(scope, await receive())
+
 		for r in self.routes:
-			if path == r:
-				await send(self.routes[r].header())
-				await send(self.routes[r].body())
+			if path == r[0]:
+				handler = r[1](request)
+				await send(handler.header())
+				await send(handler.body())
 				
 				flag = 1
 				break

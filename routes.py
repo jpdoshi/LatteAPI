@@ -1,6 +1,7 @@
 from controllers import index, users
+from utils.requests import route
 
 urls = {
-	'/': index.controller(),
-	'/users': users.controller(),
+	route('/', index.controller),
+	route('/users', users.controller),
 }
