@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from latteapi.utils import cli
 import argparse
 
 desc = "Caffeine is CLI Utility for LatteAPI"
@@ -11,7 +12,7 @@ parser.add_argument("-c", "--controller", help="Generate Controller")
 args = parser.parse_args()
 
 if args.model:
-	print("Adding Model:" + args.model)
+	cli.generate_model(args.model)
 
 if args.controller:
-	print("Adding Model:" + args.controller)
+	cli.generate_controller(args.controller)

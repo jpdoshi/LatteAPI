@@ -1,5 +1,3 @@
-import json
-
 class Request():
 	def __init__(self, scope, receive):
 		self.body = receive['body'].decode('utf')
@@ -38,5 +36,5 @@ class Latte():
 
 			await send({
 				'type': 'http.response.body',
-				'body': b'400: Requested URL not found'
+				'body': b'400 Requested Resource Not Found'
 			})
