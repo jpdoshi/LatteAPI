@@ -1,7 +1,7 @@
 from controllers import index, users
-from utils.requests import route
+from latteapi.urls import route
 
-urls = {
+urls = [
 	route('/', index.controller),
 	route('/users', users.controller),
-}
+]

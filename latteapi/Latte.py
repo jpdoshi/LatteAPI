@@ -1,8 +1,8 @@
+import json
+
 class Request():
-	def __init__(self, scope, request):
-		self.scope = scope
-		self.request = request
-		self.body = request['body'].decode('utf')
+	def __init__(self, scope, receive):
+		self.body = receive['body'].decode('utf')
 
 class Latte():
 	def __init__(self):
@@ -17,10 +17,12 @@ class Latte():
 		request = Request(scope, await receive())
 
 		for r in self.routes:
-			if path == r[0]:
-				handler = r[1](request)
-				await send(handler.header())
-				await send(handler.body())
+			url = r[0]
+			handler = r[1]
+			if path == url:
+				_handler = handler(request)
+				await send(_handler.header())
+				await send(_handler.body())
 				
 				flag = 1
 				break

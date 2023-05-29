@@ -1,4 +1,4 @@
-from utils.responses import TextResponse
+from latteapi.utils.responses import TextResponse, JSONResponse
 
 def controller(request):
 	msg = "Hello, World!"
