@@ -7,5 +7,4 @@ assignees: ''
 
 ---
 
-Help LatteAPI become popular by reporting issues here.
-You can list your issues here ⬇️
+
