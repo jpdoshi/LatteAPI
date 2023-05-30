@@ -2,34 +2,27 @@
 Fast, Secure, Asynchronous Backend Framework
 
 ## Get Started
-+ Create virtual environment
-+ Install dependencies
-
+Create virtual environment
+Install dependencies
 ```shell
 pip install -r requirements.py
 ```
 
-+ Install ASGI server
-
+Install ASGI server
 ```shell
 pip install uvicorn
-
 # OR
-
 pip install daphne
 ```
 
-+ Initialize app
-
+Initialize app
 ```shell
 # For Development
 uvicorn app:app --reload
 
 # For Production
 uvicorn app:app
-
 # OR
-
 daphne app:app
 ```
 
@@ -59,7 +52,7 @@ python caffeine.py --model <model>
 
 ### Easy to understand
 + LatteAPI is inspired by frameworks such as django and FastAPI
-+ Here, syntax is nearly identical as django
++ Here, syntax is so easy to understand
 + Code is distributed into separate files
 
 ### Convention over Configuration
