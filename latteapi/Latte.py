@@ -1,6 +1,4 @@
-class Request():
-	def __init__(self, scope, receive):
-		self.body = receive['body'].decode('utf')
+from .utils.requests import Request
 
 class Latte():
 	def __init__(self):
@@ -12,13 +10,16 @@ class Latte():
 		path = scope['path']
 		flag = 0
 
-		request = Request(scope, await receive())
+		_receive = await receive()
+		request = Request(scope, _receive)
 
 		for r in self.routes:
 			url = r[0]
 			handler = r[1]
+
 			if path == url:
 				_handler = handler(request)
+
 				await send(_handler.header())
 				await send(_handler.body())
 				

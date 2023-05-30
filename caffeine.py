@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from latteapi.utils import cli
+from latteapi import cli
 import argparse
 
 desc = "Caffeine is CLI Utility for LatteAPI"
