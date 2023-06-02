@@ -13,14 +13,17 @@ def generate_controller(controller):
 			with open(_file, 'w') as _f:
 				_f.write(
 f'''from latteapi.utils.responses import TextResponse, JSONResponse
+from latteapi.utils.caching import cached
 
-def controller(request):
+@cached
+def {controller}(request):
 	msg = "{controller} works!"
 	return TextResponse(msg)
 ''')
-				print("Controller generated!")
+			print("MESSAGE: Controller generated!")
+			print("INFO: Remember to add route for controller")
 		else:
-			print("Controller already exists...")
+			print("ERROR: Controller already exists...")
 
 	except Exception as e:
-		print("Could not generate controller\n" + e)
+		print("ERROR: Could not generate controller\n" + e)

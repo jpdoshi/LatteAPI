@@ -1,5 +1,7 @@
 from latteapi.utils.responses import TextResponse, JSONResponse
+from latteapi.utils.caching import cached
 
-def controller(request):
+@cached
+def index(request):
 	msg = "Hello, World!"
 	return TextResponse(msg)

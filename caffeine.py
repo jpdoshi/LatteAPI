@@ -6,8 +6,8 @@ import argparse
 desc = "Caffeine is CLI Utility for LatteAPI"
 parser = argparse.ArgumentParser(description=desc)
 
-parser.add_argument("-m", "--model", help="Generate Model")
-parser.add_argument("-c", "--controller", help="Generate Controller")
+parser.add_argument("-gm", "--model", help="Generate Model")
+parser.add_argument("-gc", "--controller", help="Generate Controller")
 
 args = parser.parse_args()
 
