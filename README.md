@@ -8,22 +8,19 @@ Install dependencies
 pip install -r requirements.py
 ```
 
-Install ASGI server
+Install ASGI server: uvicorn / hypercorn / daphne
 ```shell
-pip install uvicorn
-# OR
-pip install daphne
+pip install <server>
 ```
 
 Initialize app
 ```shell
 # For Development
-uvicorn app:app --reload
+<server> app:app --reload 
+# daphne is not used for development
 
 # For Production
-uvicorn app:app
-# OR
-daphne app:app
+<server> app:app
 ```
 
 ## Dependencies
