@@ -1,10 +1,10 @@
 from latteapi.utils.responses import TextResponse, JSONResponse
-from latteapi.utils.caching import cached
+from latteapi.middleware import lattecache
 
 from latteapi.utils.conversion import jsonify
 from models import user
 
-@cached
+@lattecache
 def users(request):
 	user_list = user.model()
 	user_list.pop(-1)
