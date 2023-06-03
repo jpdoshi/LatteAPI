@@ -29,11 +29,12 @@ Following packages are used by LatteAPI
 
 ## Features
 ### Fast and Secure
-+ LatteAPI is based on ASGI(Asynchronous Server Gateway Interface), therefore It is fast and secure
++ LatteAPI is based on ASGI(Asynchronous Server Gateway Interface), therefore It is much fast and secure
 + It implements response caching algorithm to process much faster
++ Gateway Interface keeps backend safe
 
 ### Rapid development
-+ Caffeine is CLI Utility for LatteAPI, which helps generate controllers and models via commands
++ Caffeine is CLI Utility for LatteAPI, which helps generate controllers and models via command-line
 
 ```shell
 # To generate controller:
@@ -48,11 +49,11 @@ python caffeine.py --model <model>
 + Therefore, ORM programming and features are same as SQLAlchemy
 
 ### Easy to understand
-+ LatteAPI is inspired by frameworks such as django and FastAPI
-+ Here, syntax is so easy to understand
-+ Code is distributed into separate files
++ LatteAPI is inspired by popular frameworks such as django and FastAPI
++ Clean and easy syntax makes LatteAPI a far better choice
++ Code is distributed over separate files in order to keep project organized
 
 ### Convention over Configuration
 + LatteAPI implements set of configurations itself, so that developers can work on real thing
-+ Provides DRY(Don't Repeat Yourself) principles
-+ Such features makes LatteAPI reliable
++ Implements DRY(Don't Repeat Yourself) principle
++ Such features makes LatteAPI much reliable to use
