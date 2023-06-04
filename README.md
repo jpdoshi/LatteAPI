@@ -3,12 +3,13 @@ Fast, Secure, Asynchronous Backend Framework
 
 ## Get Started
 Create virtual environment
+
 Install dependencies
 ```shell
 pip install -r requirements.py
 ```
 
-Install ASGI server: uvicorn / hypercorn / daphne
+Install ASGI server such as uvicorn / hypercorn / daphne
 ```shell
 pip install <server>
 ```
@@ -25,23 +26,27 @@ Initialize app
 
 ## Dependencies
 Following packages are used by LatteAPI
-+ SQLAlchemy
++ latteapi
++ sqlalchemy
 
 ## Features
 ### Fast and Secure
 + LatteAPI is based on ASGI(Asynchronous Server Gateway Interface), therefore It is much fast and secure
-+ It implements response caching algorithm to process much faster
-+ Gateway Interface keeps backend safe
++ Implements response caching algorithm to process faster and reduce no. of requests
++ Avoids data leak and keeps backend safe
 
 ### Rapid development
 + Caffeine is CLI Utility for LatteAPI, which helps generate controllers and models via command-line
 
 ```shell
 # To generate controller:
-python caffeine.py --controller <controller>
+python caffeine.py gc <name>
 
 # To generate model:
-python caffeine.py --model <model>
+python caffeine.py gm <name>
+
+# To migrate database:
+python caffeine.py migrate
 ```
 
 ### Support for various databases
