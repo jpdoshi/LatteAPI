@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 
+# import necessary packages:
 from latteapi import cli
-import argparse
+import sys
 
-desc = "Caffeine is CLI Utility for LatteAPI"
-parser = argparse.ArgumentParser(description=desc)
+# caffeine description:
+description = "Caffeine is CLI Utility for LatteAPI"
+print(description)
 
-parser.add_argument("-gm", "--model", help="Generate Model")
-parser.add_argument("-gc", "--controller", help="Generate Controller")
+# get cli arguments:
+args = sys.argv
+del args[0]
 
-args = parser.parse_args()
-
-if args.model:
-	cli.generate_model(args.model)
-
-if args.controller:
-	cli.generate_controller(args.controller)
+# pass arguments to cli:
+cli.setargs(args)

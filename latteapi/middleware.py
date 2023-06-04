@@ -23,3 +23,6 @@ def lattecache(response):
         return cached_data
 
     return wrapper
+
+def route(url, handler):
+    return (url, handler)

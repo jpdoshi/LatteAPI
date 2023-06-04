@@ -1,9 +1,43 @@
 import os
 
-def generate_model(model):
+def setargs(arglist:list):
+	try:
+		_arg = arglist[0]
+
+		if _arg == "gc":
+			_name = arglist[1]
+			gen_controller(_name)
+
+		elif _arg == "gm":
+			_name = arglist[1]
+			gen_model(_name)
+
+		elif _arg == "migrate":
+			migrate()
+
+		else:
+			instruction()
+
+	except:
+		instruction()
+
+def instruction():
+	print("USAGE INSTRUCTION:")
+	print("gc <name> : Generates controller")
+	print("gm <name> : Generates Model")
+	print("migrate   : Database Migration")
+
+def migrate():
+	try:
+		print("Migrating...")
+
+	except Exception as e:
+		print("EXCEPTION:\n", e)
+
+def gen_model(model):
 	pass
 
-def generate_controller(controller):
+def gen_controller(controller):
 	try:
 		_dir = 'controllers/'
 		_name = str(controller + '.py')
@@ -20,10 +54,11 @@ def {controller}(request):
 	msg = "{controller} works!"
 	return TextResponse(msg)
 ''')
-			print("MESSAGE: Controller generated!")
-			print("INFO: Remember to add route for controller")
+			print("INFO: Controller generated")
+			print("MESSAGE: Remember to add route for controller")
+
 		else:
-			print("ERROR: Controller already exists...")
+			print("ERROR: Controller already exists")
 
 	except Exception as e:
-		print("ERROR: Could not generate controller\n" + e)
+		print("EXCEPTION:\n", e)
