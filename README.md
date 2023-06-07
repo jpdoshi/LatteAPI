@@ -2,30 +2,27 @@
 Fast, Secure, Asynchronous Backend Framework
 
 ## Get Started
-Create virtual environment and install latteapi
-```shell
-pip install latteapi
-```
+Follow mentioned steps to get started
 
-Install ASGI server such as uvicorn / hypercorn / daphne
-```shell
-pip install <server>
-```
++ Create virtual environment and install latteapi
+  ```shell
+  pip install latteapi
+  ```
 
-Initialize app
-```shell
-# For Development
-<server> app:app --reload 
-# daphne is not used for development
++ Install ASGI server such as uvicorn / hypercorn / daphne
+  ```shell
+  pip install <server>
+  ```
 
-# For Production
-<server> app:app
-```
++ Initialize app
+  ```shell
+  # For Development
+  <server> app:app --reload 
+  # daphne is not used for development
 
-## Dependencies
-Following packages are used by LatteAPI
-+ latteapi
-+ sqlalchemy
+  # For Production
+  <server> app:app
+  ```
 
 ## Features
 ### Fast and Secure
@@ -35,17 +32,16 @@ Following packages are used by LatteAPI
 
 ### Rapid development
 + Caffeine is CLI utility plugin provided to generate controllers and models and for migration
+  ```shell
+  # To generate controller:
+  python caffeine.py gc <name>
 
-```shell
-# To generate controller:
-python caffeine.py gc <name>
+  # To generate model:
+  python caffeine.py gm <name>
 
-# To generate model:
-python caffeine.py gm <name>
-
-# To migrate database:
-python caffeine.py migrate
-```
+  # To migrate database:
+  python caffeine.py migrate
+  ```
 
 ### Batteries Included
 + Most of utilities and middlewares are provided by latteapi
