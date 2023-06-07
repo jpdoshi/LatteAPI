@@ -9,4 +9,4 @@ from latteapi.middleware import lattecache
 @lattecache
 def index(request):
 	msg = "Hello, World!"
-	return TextResponse(msg)
+	return TextResponse(str(msg))

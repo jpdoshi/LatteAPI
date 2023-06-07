@@ -24,5 +24,5 @@ def lattecache(response):
 
     return wrapper
 
-def route(url, handler):
+def route(url, handler) -> tuple:
     return (url, handler)

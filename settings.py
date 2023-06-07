@@ -1,6 +1,6 @@
-modes = [
-	"DEV",
-	"PROD",
-]
+# PROJECT ENVIRONMENT: DEVELOPMENT / PRODUCTION
+environment = "DEVELOPMENT"
 
-env = modes[0]
+middlewares = [
+	
+]
