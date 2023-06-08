@@ -1,5 +1,5 @@
 from .utils.requests import Request
-from .utils.responses import NotFound
+from .utils.responses import TextResponse
 
 class Latte():
 	def __init__(self):
@@ -21,15 +21,25 @@ class Latte():
 	async def handle_http(self, scope, receive, send):
 		assert scope['type'] == 'http'
 
+		params = {}
 		path = scope['path']
 		flag = 0
 
 		_receive = await receive()
-		request = Request(scope, _receive)
 
 		for r in self.routes:
 			url = r[0]
 			handler = r[1]
+
+			if url.find(":") is not int(-1):
+				pos = url.find(":")
+
+				if path[pos:] != "":
+					params[str(url[pos+1:])] = path[pos:]
+					path = path[:pos]
+					url = url[:pos]
+
+			request = Request(scope, _receive, params)
 
 			if path == url:
 				_handler = handler(request)
@@ -44,7 +54,7 @@ class Latte():
 				break
 
 		if flag == 0:
-			not_found = NotFound("Requested Resource Not Found")
+			not_found = TextResponse("Internal Server Error", status=500)
 
 			await send(not_found.header())
 			await send(not_found.body())

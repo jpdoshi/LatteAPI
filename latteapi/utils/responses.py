@@ -35,15 +35,3 @@ class TextResponse(Response):
 		self.data = data
 		self.mime = 'text/plain'
 		self.status = status
-
-class NotFound(Response):
-	def __init__(self, data: str):
-		self.data = data
-		self.mime = 'text/plain'
-		self.status = 404
-
-class BadRequest(Response):
-	def __init__(self, data: str):
-		self.data = data
-		self.mime = 'text/plain'
-		self.status = 400
