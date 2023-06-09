@@ -21,28 +21,35 @@ class Latte():
 	async def handle_http(self, scope, receive, send):
 		assert scope['type'] == 'http'
 
-		params = {}
 		path = scope['path']
+		param = None
 		flag = 0
 
 		_receive = await receive()
+		request = Request(scope, _receive)
 
 		for r in self.routes:
 			url = r[0]
 			handler = r[1]
 
-			if url.find(":") is not int(-1):
+			if url.find(":") != -1:
 				pos = url.find(":")
 
 				if path[pos:] != "":
-					params[str(url[pos+1:])] = path[pos:]
+					param = path[pos:]
 					path = path[:pos]
 					url = url[:pos]
 
-			request = Request(scope, _receive, params)
+			if path[-1] != "/":
+				path = path + "/"
 
 			if path == url:
-				_handler = handler(request)
+				if param is not None:
+					if param[-1] == "/":
+						param = param[:-1]
+					_handler = handler(request, param)
+				else:
+					_handler = handler(request)
 
 				_header  = _handler.header()
 				_body    = _handler.body()

@@ -25,4 +25,6 @@ def lattecache(response):
     return wrapper
 
 def route(url, handler) -> tuple:
+    if url[-1] != "/":
+        url = url + "/"
     return (url, handler)
