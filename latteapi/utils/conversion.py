@@ -1,7 +1,7 @@
 import json
 
-def jsonify(data, loads=False):
-	if not loads:
-		return json.dumps(data)
-	else:
-		return json.dumps(json.loads(data))
+def jsonify(data):
+	return json.dumps(data)
+
+def stringify(data):
+	return json.loads(data)

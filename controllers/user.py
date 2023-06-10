@@ -12,12 +12,16 @@ def user(request, name):
 		if user is not None:
 			response = JSONResponse(user)
 		else:
-			response = TextResponse("No User Found", status=404)
+			response = TextResponse("No user found", status=404)
 
 		return response
 
 	if request.method == "POST":
 		user = User().create_user_by_name(name)
-		response = TextResponse(user)
+
+		if user is not None:
+			response = TextResponse(user + " added")
+		else:
+			response = TextResponse("Could not create user", status=500)
 
 		return response
