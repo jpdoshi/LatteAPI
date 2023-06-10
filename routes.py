@@ -13,5 +13,5 @@ from controllers.user import user
 urls = [
 	route('/', index),
 	route('/users', users),
-	route('/user/:id', user),
+	route('/user/:name', user),
 ]

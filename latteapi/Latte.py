@@ -22,7 +22,7 @@ class Latte():
 		assert scope['type'] == 'http'
 
 		path = scope['path']
-		param = None
+		parameter = None
 		flag = 0
 
 		_receive = await receive()
@@ -36,7 +36,7 @@ class Latte():
 				pos = url.find(":")
 
 				if path[pos:] != "":
-					param = path[pos:]
+					parameter = path[pos:]
 					path = path[:pos]
 					url = url[:pos]
 
@@ -44,24 +44,27 @@ class Latte():
 				path = path + "/"
 
 			if path == url:
-				if param is not None:
-					if param[-1] == "/":
-						param = param[:-1]
-					_handler = handler(request, param)
+				if parameter is not None:
+					if parameter[-1] == "/":
+						parameter = parameter[:-1]
+					response = handler(request, parameter)
 				else:
-					_handler = handler(request)
+					response = handler(request)
 
-				_header  = _handler.header()
-				_body    = _handler.body()
+				header  = response.header()
+				body    = response.body()
 
-				await send(_header)
-				await send(_body)
+				await send(header)
+				await send(body)
 
 				flag = 1
 				break
 
 		if flag == 0:
-			not_found = TextResponse("Internal Server Error", status=500)
+			response = TextResponse("Internal Server Error", status=500)
 
-			await send(not_found.header())
-			await send(not_found.body())
+			header = response.header()
+			body = response.body()
+
+			await send(header)
+			await send(body)

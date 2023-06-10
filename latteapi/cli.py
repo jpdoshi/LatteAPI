@@ -52,7 +52,9 @@ from latteapi.middleware import lattecache
 @lattecache
 def {controller}(request):
 	msg = "{controller} works!"
-	return TextResponse(msg)
+	response = TextResponse(msg)
+
+	return response
 ''')
 			print("INFO: Controller generated")
 			print("MESSAGE: Remember to add route for controller")
