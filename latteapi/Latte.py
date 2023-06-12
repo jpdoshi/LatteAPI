@@ -47,7 +47,9 @@ class Latte():
 				if parameter is not None:
 					if parameter[-1] == "/":
 						parameter = parameter[:-1]
+
 					response = handler(request, parameter)
+
 				else:
 					response = handler(request)
 

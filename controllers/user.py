@@ -10,9 +10,9 @@ def user(request, name):
 		user = User().get_user_by_name(name)
 
 		if user is not None:
-			response = JSONResponse(user)
+			response = TextResponse(user)
 		else:
-			response = TextResponse("No user found", status=404)
+			response = TextResponse("User not found", status=404)
 
 		return response
 
