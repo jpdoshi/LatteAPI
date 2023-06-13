@@ -53,8 +53,8 @@ class Latte():
 				else:
 					response = handler(request)
 
-				header  = response.header()
-				body    = response.body()
+				header:dict = response.get_header()
+				body:dict = response.get_body()
 
 				await send(header)
 				await send(body)
@@ -65,8 +65,8 @@ class Latte():
 		if flag == 0:
 			response = TextResponse("Internal Server Error", status=500)
 
-			header = response.header()
-			body = response.body()
+			header:dict = response.get_header()
+			body:dict = response.get_body()
 
 			await send(header)
 			await send(body)

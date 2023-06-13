@@ -1,37 +1,51 @@
 class Response():
-	def __init__(self):
-		self.data = ""
-		self.mime = ""
-		self.status = 200
+	def __init__(self, data, mime, status):
+		self.data = data
+		self.mime = mime
+		self.status = status
 
-	def header(self):
-		headers = [
+		self.headers = None
+		self.body = None
+
+		self.set_headers([
 			(b'Content-Type', bytes(self.mime, 'utf-8')),
 			(b'Content-Length', bytes(str(len(self.data)), 'utf-8')),
-		]
+		])
 
+		self.set_body(bytes(self.data, 'utf-8'))
+
+	def set_headers(self, headers):
+		self.headers = headers
+
+	def set_body(self, body):
+		self.body = body
+
+	def get_header(self) -> dict:
 		return {
 			'type': 'http.response.start',
 			'status': self.status,
-			'headers': headers,
+			'headers': self.headers,
 		}
 
-	def body(self):
-		body = bytes(self.data, 'utf-8')
-
+	def get_body(self) -> dict:
 		return {
 			'type': 'http.response.body',
-			'body': body,
+			'body': self.body,
 		}
+
+	def addHeader(self, _h:tuple):
+		self.headers.append(_h)
+
+	def set_cookie(self, key, value, expires="", max_age="", path='/', secure=""):
+		cookie = f"{key}={value}; expires={expires}; Max-Age={max_age}; Path={path}; {secure}"
+		cookie_header = (b'Set-Cookie', bytes(cookie, 'utf-8'))
+
+		self.addHeader(cookie_header)
 
 class JSONResponse(Response):
 	def __init__(self, data: str, status=200):
-		self.data = data
-		self.mime = 'application/json'
-		self.status = status
+		super().__init__(data, "application/json", status)
 
 class TextResponse(Response):
 	def __init__(self, data: str, status=200):
-		self.data = data
-		self.mime = 'text/plain'
-		self.status = status
+		super().__init__(data, "text/plain", status)
