@@ -1,7 +1,7 @@
 from latteapi.utils.responses import TextResponse
-from latteapi.middleware import lattecache
+from latteapi.middleware import cache
 
-@lattecache
+@cache()
 def index(request):
 	msg = "Hello, World!"
 	response = TextResponse(msg)

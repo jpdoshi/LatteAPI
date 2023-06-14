@@ -47,9 +47,7 @@ def gen_controller(controller):
 			with open(_file, 'w') as _f:
 				_f.write(
 f'''from latteapi.utils.responses import TextResponse, JSONResponse
-from latteapi.middleware import lattecache
 
-@lattecache
 def {controller}(request):
 	msg = "{controller} works!"
 	response = TextResponse(msg)

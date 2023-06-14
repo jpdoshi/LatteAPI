@@ -1,30 +1,49 @@
 from functools import wraps
+import hashlib
 
-cache = {}
+caches = {}
 
-def lattecache(response):
-    @wraps(response)
-    def wrapper(*args, **kwargs):
-        func = response.__name__, args, kwargs
-        data = response(*args, **kwargs)
+def create_etag(data):
+    _hash = hashlib.sha1()
+    _hash.update(bytes(data, 'utf-8'))
+    etag = _hash.hexdigest()
+    return etag
 
-        key = str(func[1][0].path)
-        value = data.data
+def cache(max_age=86400, vary=None, expires=None, memcached=False):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            resp_obj = func.__name__, args, kwargs
+            key = str(resp_obj[1][0].path)
 
-        cached_data = None
+            response = func(*args, **kwargs)
+            data = response.data
 
-        if key in cache and value == cache[key].data:
-            cached_data = cache[key]
+            etag = create_etag(data)
 
-        else:
-            cache[key] = data
-            cached_data = cache[key]
+            if memcached == True:
+                if key in caches and data == caches[key].data:
+                    response = caches[key]
+                else:
+                    caches[key] = response
+                    response = caches[key]
 
-        return cached_data
+            else:
+                response.addHeader((b'Cache-Control', bytes(f"max-age={max_age}", 'utf-8')))
+                response.addHeader((b'Etag', bytes(f"{etag}", 'utf-8')))
 
-    return wrapper
+                if vary is not None:
+                    response.addHeader((b'Vary', bytes(f"{vary}", 'utf-8')))
+
+                if expires is not None:
+                    response.addHeader((b'Expires', bytes(f"{expires}", 'utf-8')))
+
+            return response
+        return wrapper
+    return decorator
 
 def route(url, handler) -> tuple:
     if url[-1] != "/":
         url = url + "/"
+
     return (url, handler)

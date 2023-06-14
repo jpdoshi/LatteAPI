@@ -1,10 +1,8 @@
 from latteapi.utils.responses import TextResponse, JSONResponse
-from latteapi.middleware import lattecache
-
 from latteapi.utils.conversion import jsonify
+
 from models.user import User
 
-@lattecache
 def user(request, name):
 	if request.method == "GET":
 		user = User().get_user_by_name(name)
