@@ -27,8 +27,13 @@ Follow mentioned steps to get started
 ## Features
 ### Fast and Secure
 + LatteAPI is based on ASGI(Asynchronous Server Gateway Interface), therefore It is much fast and secure
-+ Implements response caching and provides response compression middleware
++ Provides middlewares to increase performance and reduce response time
 + Prevents data to leak keeping it safe
+
+### Highly Scalable
++ LatteAPI can be used to build highly scalable projects(such as APIs and services)
++ It provides various middlewares which can be used to high-scale the project
++ LatteAPI can be configured according to size and complexity of project
 
 ### Rapid development
 + Caffeine is CLI utility plugin provided to generate controllers and models and for migration
