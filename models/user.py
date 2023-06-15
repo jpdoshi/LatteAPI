@@ -1,5 +1,11 @@
 # temporary data store:
-users = ["jon", "arya", "sansa", "robb", "bran"]
+users = [
+	{"id": 1, "name": "jon"},
+	{"id": 2, "name": "arya"},
+	{"id": 3, "name": "sansa"},
+	{"id": 4, "name": "robb"},
+	{"id": 5, "name": "bran"}
+]
 
 class User():
 	def __init__(self):

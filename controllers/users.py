@@ -3,6 +3,9 @@ from latteapi.utils.conversion import jsonify
 
 from models.user import User
 
+from latteapi.middleware import cache
+
+@cache()
 def users(request):
 	user_list = User().get_all_users()
 	users = {
