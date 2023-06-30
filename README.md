@@ -42,10 +42,6 @@ Follow mentioned steps to get started
   python caffeine.py controller <name>
   ```
 
-### Batteries Included
-+ Most of utilities and middlewares are provided by latteapi
-+ latte-alchemy is used for ORM, which is a plugin based on SQLAlchemy
-
 ### Easy to understand
 + LatteAPI is inspired by popular frameworks such as django and FastAPI
 + Clean and easy syntax makes LatteAPI a far better choice
