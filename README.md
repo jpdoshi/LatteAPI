@@ -39,13 +39,7 @@ Follow mentioned steps to get started
 + Caffeine is CLI utility plugin provided to generate controllers and models and for migration
   ```shell
   # To generate controller:
-  python caffeine.py gc <name>
-
-  # To generate model:
-  python caffeine.py gm <name>
-
-  # To migrate database:
-  python caffeine.py migrate
+  python caffeine.py controller <name>
   ```
 
 ### Batteries Included
