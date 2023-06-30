@@ -1,6 +1,2 @@
 # PROJECT ENVIRONMENT: DEVELOPMENT / PRODUCTION
 environment = "DEVELOPMENT"
-
-middlewares = [
-	
-]

@@ -2,6 +2,8 @@
 
 # import necessary packages:
 from latteapi import cli
+
+import db
 import sys
 
 # caffeine description:

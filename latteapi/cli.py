@@ -4,16 +4,9 @@ def setargs(arglist:list):
 	try:
 		_arg = arglist[0]
 
-		if _arg == "gc":
+		if _arg == "controller":
 			_name = arglist[1]
 			gen_controller(_name)
-
-		elif _arg == "gm":
-			_name = arglist[1]
-			gen_model(_name)
-
-		elif _arg == "migrate":
-			migrate()
 
 		else:
 			instruction()
@@ -24,18 +17,6 @@ def setargs(arglist:list):
 def instruction():
 	print("USAGE INSTRUCTION:")
 	print("gc <name> : Generates controller")
-	print("gm <name> : Generates Model")
-	print("migrate   : Database Migration")
-
-def migrate():
-	try:
-		print("Migrating...")
-
-	except Exception as e:
-		print("EXCEPTION:\n", e)
-
-def gen_model(model):
-	pass
 
 def gen_controller(controller):
 	try:
