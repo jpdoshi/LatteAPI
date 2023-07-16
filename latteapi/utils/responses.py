@@ -9,7 +9,6 @@ class Response():
 
 		self.set_headers([
 			(b'Content-Type', bytes(self.mime, 'utf-8')),
-			(b'Content-Length', bytes(str(len(self.data)), 'utf-8')),
 		])
 
 		self.set_body(bytes(self.data, 'utf-8'))
