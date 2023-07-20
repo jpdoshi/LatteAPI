@@ -8,6 +8,10 @@ def setargs(arglist:list):
 			_name = arglist[1]
 			gen_controller(_name)
 
+		if _arg == "model":
+			_name = arglist[1]
+			gen_model(_name)
+
 		else:
 			instruction()
 
@@ -40,6 +44,38 @@ def {controller}(request):
 
 		else:
 			print("ERROR: Controller already exists")
+
+	except Exception as e:
+		print("EXCEPTION:\n", e)
+
+def gen_model(model):
+	try:
+		_dir = 'models/'
+		_name = str(model + '.py')
+		_file = _dir + _name
+
+		if not os.path.exists(_file):
+			with open(_file, 'w') as _f:
+				_f.write(
+f'''from sqlalchemy import Column, Integer, String
+from db import Base
+
+class {model.capitalize()}(Base):
+	__tablename__ = "{model}"
+
+	id = Column(Integer, primary_key=True)
+	# add fields
+
+	def __init__(self):
+		pass
+
+	# add methods to return data
+
+''')
+			print("INFO: Model generated")
+
+		else:
+			print("ERROR: Model already exists")
 
 	except Exception as e:
 		print("EXCEPTION:\n", e)
