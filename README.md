@@ -26,28 +26,34 @@ Follow mentioned steps to get started
 
 ## Features
 ### Fast and Secure
-+ LatteAPI is based on ASGI(Asynchronous Server Gateway Interface), therefore It is much fast and secure
++ LatteAPI is based on ASGI specification(Asynchronous Server Gateway Interface)
 + Provides middlewares to increase performance and reduce response time
-+ Prevents data to leak keeping it safe
++ Prevents data leakage and piracy
 
 ### Highly Scalable
-+ LatteAPI can be used to build highly scalable projects(such as APIs and services)
-+ It provides various middlewares which can be used to high-scale the project
-+ LatteAPI can be configured according to size and complexity of project
++ LatteAPI can be used to build complex and highly scalable projects
++ It provides various middlewares which can be used to scale the project
++ Application can be configured according to size and complexity of project
 
 ### Rapid development
-+ Caffeine is CLI utility plugin provided to generate controllers and models and for migration
++ Caffeine is CLI utility plugin provided to generate controllers and models dynamically
   ```shell
   # To generate controller:
   python caffeine.py controller <name>
+
+  # To generate model:
+  python caffeine.py model <name>
   ```
 
-### Easy to understand
+### Easy and Reliable
 + LatteAPI is inspired by popular frameworks such as django and FastAPI
-+ Clean and easy syntax makes LatteAPI a far better choice
++ Clean and easy syntax makes LatteAPI a better choice for better application
 + Code is distributed over separate files in order to keep project organized
 
 ### Convention over Configuration
 + LatteAPI implements set of configurations itself, so that developers can work on real thing
 + Implements DRY(Don't Repeat Yourself) principle
-+ Such features makes LatteAPI much reliable to use
+
+### Flexible
++ LatteAPI use sqlalchemy, a very popular ORM, for it's ORM
++ Developers can use different libraries for database, if they want
