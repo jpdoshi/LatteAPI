@@ -13,7 +13,17 @@ class ORM():
 	def migrate(self):
 		self.base.metadata.create_all(self.engine)
 
+	def select(self, model):
+		return self.session.query(model)
+
+	def update(self):
+		self.session.commit()
+
 	def save(self, model):
 		self.migrate()
 		self.session.add(model)
+		self.session.commit()
+
+	def delete(self, model):
+		self.session.delete(model)
 		self.session.commit()

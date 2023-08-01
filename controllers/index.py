@@ -14,10 +14,10 @@ from db import orm
 
 def index(request):
 	try:
-		car = Car(request.body)
-		orm.save(car)
+		first_car = orm.select(Car).get(3)
+		orm.delete(first_car)
 		
-		msg = "Car Added!"
+		msg = "Record deleted"
 		response = TextResponse(msg)
 
 		return response
