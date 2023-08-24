@@ -1,11 +1,17 @@
 from .utils.requests import Request
 from .utils.responses import TextResponse
 
+from .debug import ShowException
+
+import traceback
+import sys
+
 class Latte():
 	# initialize application
-	def __init__(self):
+	def __init__(self, debug=True):
 		self.routes = {}
 		self.middlewares = []
+		self.debug = debug
 
 	def add_middleware(self, middleware):
 		self.middlewares.append(middleware)
@@ -34,62 +40,70 @@ class Latte():
 
 		# initialize attributes
 		parameter = None
-		flag = 0
+		# flag = 0
 
-		# create request object
-		_receive = await receive()
-		request = Request(scope, _receive)
+		try:
+			# create request object
+			_receive = await receive()
+			request = Request(scope, _receive)
 
-		# handle routes
-		for r in self.routes:
-			url = r[0]
-			handler = r[1]
+			# handle routes
+			for r in self.routes:
+				url = r[0]
+				handler = r[1]
 
-			# handle parameters
-			if url.find(":") != -1:
-				pos = url.find(":")
+				# handle parameters
+				if url.find(":") != -1:
+					pos = url.find(":")
 
-				if path[pos:] != "":
-					parameter = path[pos:]
-					path = path[:pos]
-					url = url[:pos]
+					if path[pos:] != "":
+						parameter = path[pos:]
+						path = path[:pos]
+						url = url[:pos]
 
-			# decorate url
-			if path[-1] != "/":
-				path = path + "/"
+				# decorate url
+				if path[-1] != "/":
+					path = path + "/"
 
-			# create response object
-			if path == url:
-				if parameter is not None:
-					if parameter[-1] == "/":
-						parameter = parameter[:-1]
+				# create response object
+				if path == url:
+					if parameter is not None:
+						if parameter[-1] == "/":
+							parameter = parameter[:-1]
 
-					response = handler(request, parameter)
+						response = handler(request, parameter)
 
-				else:
-					response = handler(request)
+					else:
+						response = handler(request)
 
-				if self.middlewares is not None:
-					for middleware in self.middlewares:
-						m = middleware(response)
-						response = m
+					if self.middlewares is not None:
+						for middleware in self.middlewares:
+							m = middleware(response)
+							response = m
 
-				# fetch response data
-				header:dict = response.get_header()
-				body:dict = response.get_body()
+					# fetch response data
+					header:dict = response.get_header()
+					body:dict = response.get_body()
 
-				# serve response data
-				await send(header)
-				await send(body)
+					# serve response data
+					await send(header)
+					await send(body)
 
-				# response over
-				flag = 1
-				break
+					# response over
+					break
 
 		# handle http exception
-		if flag == 0:
+		except Exception as e:
 			# create error response
-			response = TextResponse("Internal Server Error", status=500)
+			if self.debug == False:
+				response = TextResponse("Internal Server Error", status=500)
+
+			else:
+				exc_type, exc_value, exc_tb = sys.exc_info()
+				tb = traceback.TracebackException(exc_type, exc_value, exc_tb)
+
+				exc = ShowException(''.join(tb.format_exception_only()), traceback.format_tb(e.__traceback__))
+				response = exc()
 
 			# fetch response data
 			header:dict = response.get_header()

@@ -48,3 +48,7 @@ class JSONResponse(Response):
 class TextResponse(Response):
 	def __init__(self, data: str, status=200):
 		super().__init__(data, "text/plain", status)
+
+class HTMLResponse(Response):
+	def __init__(self, data: str, status=200):
+		super().__init__(data, "text/html", status)
