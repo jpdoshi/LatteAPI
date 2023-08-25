@@ -4,7 +4,6 @@ from .utils.responses import TextResponse
 from .debug import ShowException
 
 import traceback
-import sys
 
 class Latte():
 	# initialize application
@@ -99,10 +98,7 @@ class Latte():
 				response = TextResponse("Internal Server Error", status=500)
 
 			else:
-				exc_type, exc_value, exc_tb = sys.exc_info()
-				tb = traceback.TracebackException(exc_type, exc_value, exc_tb)
-
-				exc = ShowException(''.join(tb.format_exception_only()), traceback.format_tb(e.__traceback__))
+				exc = ShowException(traceback.format_tb(e.__traceback__), traceback.format_stack())
 				response = exc()
 
 			# fetch response data
