@@ -1,4 +1,4 @@
-![alt text](https://github.com/jpdoshi/LatteAPI/blob/main/latteapi/logo.png?raw=true)
+![logo](https://github.com/jpdoshi/LatteAPI/assets/122164427/ba3f8c13-b17c-442c-8060-4956a8e23b6c)
 # LatteAPI
 Fast, Secure, Asynchronous Backend Framework
 
