@@ -4,9 +4,9 @@ Fast, Secure, Asynchronous Backend Framework
 ## Get Started
 Follow mentioned steps to get started
 
-+ Create virtual environment and install latteapi
++ Create virtual environment and install dependencies
   ```shell
-  pip install latteapi
+  pip install -r requirements.txt
   ```
 
 + Install ASGI server such as uvicorn / hypercorn / daphne
