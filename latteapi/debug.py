@@ -1,7 +1,7 @@
 from .utils.responses import HTMLResponse
 
 class ShowException():
-	def __init__(self, stack: str, extra: list):
+	def __init__(self, stack: list, extra: list):
 		self.stack = stack
 		self.extra = extra
 
@@ -23,7 +23,7 @@ class ShowException():
 
 			.container {
 				width: 1200px;
-				max-width: 90%;
+				max-width: 100%;
 				margin: 32px auto;
 				padding-inline: 1.5rem;
 			}
@@ -69,6 +69,10 @@ class ShowException():
 					in <span class="highlight">app.py</span> file.</p>
 				</div><div class="frame-stack">
 		"""
+
+		self.stack.pop(0)
+		self.extra.pop(0)
+
 		for line in self.stack:
 			html += "<div class=\"frame\">" + line + "</div>"
 
@@ -77,8 +81,8 @@ class ShowException():
 		<div class=\"spacer\">
 			<h1 style="margin-bottom: 8px">Extra Information</h1>
 			<hr color="#d7ccc8" style="margin-bottom: 1rem">
-			<p>Below shown are all error logs, which can be used to check if
-			there's a problem in the application or external factors.</p>
+			<p>Below shown is complete error stack, which can be used to check if
+			there's a problem in the application or any external factors.</p>
 		</div><div class="frame-stack">"""
 
 		for line in self.extra:

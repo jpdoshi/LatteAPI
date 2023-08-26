@@ -23,5 +23,5 @@ def index(request):
 # 		return response
 
 # 	except Exception as e:
-# 		response = TextResponse(e, status=500)
+# 		response = TextResponse(str(e), status=500)
 # 		return response

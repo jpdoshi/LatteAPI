@@ -42,13 +42,13 @@ class Response():
 		self.addHeader(cookie_header)
 
 class JSONResponse(Response):
-	def __init__(self, data: str, status=200):
+	def __init__(self, data: str, status: int=200):
 		super().__init__(data, "application/json", status)
 
 class TextResponse(Response):
-	def __init__(self, data: str, status=200):
+	def __init__(self, data: str, status: int=200):
 		super().__init__(data, "text/plain", status)
 
 class HTMLResponse(Response):
-	def __init__(self, data: str, status=200):
+	def __init__(self, data: str, status: int=200):
 		super().__init__(data, "text/html", status)

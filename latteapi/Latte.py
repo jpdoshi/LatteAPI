@@ -7,7 +7,7 @@ import traceback
 
 class Latte():
 	# initialize application
-	def __init__(self, debug=True):
+	def __init__(self, debug=False):
 		self.routes = {}
 		self.middlewares = []
 		self.debug = debug

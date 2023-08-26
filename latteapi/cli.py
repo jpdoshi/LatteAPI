@@ -8,7 +8,7 @@ def setargs(arglist:list):
 			_name = arglist[1]
 			gen_controller(_name)
 
-		if _arg == "model":
+		elif _arg == "model":
 			_name = arglist[1]
 			gen_model(_name)
 
@@ -20,7 +20,8 @@ def setargs(arglist:list):
 
 def instruction():
 	print("USAGE INSTRUCTION:")
-	print("gc <name> : Generates controller")
+	print("controller <name> : Generates controller")
+	print("model      <name> : Generates model")
 
 def gen_controller(controller):
 	try:
