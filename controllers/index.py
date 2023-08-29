@@ -1,4 +1,4 @@
-from latteapi.utils.responses import TextResponse
+from latteapi.utils import TextResponse
 
 def index(request):
 	msg = "Hello, World!"
@@ -8,7 +8,7 @@ def index(request):
 
 # -----------------------------------------------
 
-# from latteapi.utils.responses import TextResponse
+# from latteapi.utils import TextResponse
 # from models.car import Car
 # from db import orm
 

@@ -1,9 +1,16 @@
-from .utils.requests import Request
-from .utils.responses import TextResponse
+# IMPORTS:
+# ---------------------------------------------------------
+
+from .utils import Request
+from .utils import TextResponse
 
 from .debug import ShowException
 
 import traceback
+
+
+# LATTE OBJECT:
+# ---------------------------------------------------------
 
 class Latte():
 	# initialize application
@@ -12,6 +19,7 @@ class Latte():
 		self.middlewares = []
 		self.debug = debug
 
+	# add middleware method
 	def add_middleware(self, middleware):
 		self.middlewares.append(middleware)
 
@@ -39,7 +47,6 @@ class Latte():
 
 		# initialize attributes
 		parameter = None
-		# flag = 0
 
 		try:
 			# create request object
