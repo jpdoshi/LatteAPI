@@ -34,9 +34,9 @@ class Latte():
 
 	# lifespan handling
 	async def handle_ls(self, scope, receive, send):
-			await send({'type': 'lifespan.startup.complete'})
-			await receive()
-			await send({'type': 'lifespan.shutdown.complete'})
+		await send({'type': 'lifespan.startup.complete'})
+		await receive()
+		await send({'type': 'lifespan.shutdown.complete'})
 
 	# http request handling
 	async def handle_http(self, scope, receive, send):
