@@ -1,21 +1,17 @@
-# IMPORTS:
-# ---------------------------------------------------------
-
 from .http import HTMLResponse
 
 
-# ShowException Object:
-# ---------------------------------------------------------
-
 class ShowException():
-	# initialize exception attributes
+
 	def __init__(self, stack: list, extra: list):
+
 		self.stack = stack
+
 		self.extra = extra
 
-	# handle call function
+
 	def __call__(self):
-		# exception page HTML code
+
 		html = """
 		<head>
 		<style>
@@ -80,11 +76,11 @@ class ShowException():
 				</div><div class="frame-stack">
 		"""
 
-		# show necessary exception
+
 		self.stack.pop(0)
 		self.extra.pop(0)
 
-		# show error stack
+
 		for line in self.stack:
 			html += "<div class=\"frame\">" + line + "</div>"
 
@@ -97,11 +93,10 @@ class ShowException():
 			there's a problem in the application or any external factors.</p>
 		</div><div class="frame-stack">"""
 
-		# show full error stack
+
 		for line in self.extra:
 			html += "<div class=\"frame\">" + line + "</div>"
 
 		html += "</div></div></body>"
 
-		# show exception page in response
 		return HTMLResponse(html, status=500)

@@ -1,7 +1,9 @@
 import os
 
 def setargs(arglist:list):
+
 	try:
+
 		_arg = arglist[0]
 
 		if _arg == "controller":
@@ -18,13 +20,18 @@ def setargs(arglist:list):
 	except:
 		instruction()
 
+
 def instruction():
+
 	print("USAGE INSTRUCTION:")
 	print("controller <name> : Generates controller")
 	print("model      <name> : Generates model")
 
+
 def gen_controller(controller):
+
 	try:
+
 		_dir = 'controllers/'
 		_name = str(controller + '.py')
 		_file = _dir + _name
@@ -46,11 +53,16 @@ def {controller}(request):
 		else:
 			print("ERROR: Controller already exists")
 
+
 	except Exception as e:
+
 		print("EXCEPTION:\n", e)
 
+
 def gen_model(model):
+
 	try:
+
 		_dir = 'models/'
 		_name = str(model + '.py')
 		_file = _dir + _name
@@ -78,5 +90,7 @@ class {model.capitalize()}(Base):
 		else:
 			print("ERROR: Model already exists")
 
+
 	except Exception as e:
+
 		print("EXCEPTION:\n", e)
