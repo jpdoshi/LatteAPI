@@ -1,4 +1,4 @@
-from latteapi.utils import TextResponse
+from latteapi.http import TextResponse
 
 def index(request):
 	msg = "Hello, World!"
@@ -8,16 +8,16 @@ def index(request):
 
 # -----------------------------------------------
 
-# from latteapi.utils import TextResponse
+# from latteapi.http import TextResponse
 # from models.car import Car
 # from db import orm
 
 # def index(request):
 # 	try:
-# 		first_car = orm.select(Car).get(3)
-# 		orm.delete(first_car)
+# 		car = Car("Lexus LFA")
+# 		orm.save(car)
 		
-# 		msg = "Record deleted"
+# 		msg = "Record created!"
 # 		response = TextResponse(msg)
 
 # 		return response

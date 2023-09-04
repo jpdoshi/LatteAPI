@@ -8,6 +8,7 @@ import gzip
 import zlib
 import brotli
 
+
 # CACHING MIDDLEWARE:
 # ---------------------------------------------------------
 
@@ -70,6 +71,7 @@ class ResponseCompression():
 
 # ROUTE HANDLER:
 # ---------------------------------------------------------
+
 def route(url, handler) -> tuple:
     if url[-1] != "/":
         url = url + "/"
