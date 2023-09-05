@@ -33,7 +33,6 @@ class Response():
 			(b'Content-Type', bytes(self.mime, 'utf-8')),
 		])
 
-
 		self.set_body(self.data)
 
 
