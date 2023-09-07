@@ -95,8 +95,42 @@ class XMLResponse(Response):
 
 class FileResponse(Response):
 
-	def __init__(self, data, mime, status: int=200):
-		super().__init__(data, mime, status)
+	def __init__(self, file, mime, status: int=200):
+		super().__init__(file, mime, status)
+
+
+class StreamingResponse():
+
+	def __init__(self, stream, mime, status: int=200):
+
+		self.stream = stream
+
+		self.mime = mime
+
+		self.status = status
+
+		self.headers = [
+			(b'Content-Type', bytes(self.mime, 'utf-8')),
+		]
+
+
+	def get_header(self) -> dict:
+		return {
+			'type': 'http.response.start',
+			'status': self.status,
+			'headers': self.headers,
+		}
+
+
+	def addHeader(self, _h:tuple):
+		self.headers.append(_h)
+
+
+	def set_cookie(self, key, value, expires="", max_age="", path='/', secure=""):
+		cookie = f"{key}={value}; expires={expires}; Max-Age={max_age}; Path={path}; {secure}"
+		cookie_header = (b'Set-Cookie', bytes(cookie, 'utf-8'))
+
+		self.addHeader(cookie_header)
 
 
 class RedirectResponse(Response):

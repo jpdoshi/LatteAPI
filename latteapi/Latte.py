@@ -1,6 +1,5 @@
 from .http import Request
-from .http import TextResponse
-
+from .http import TextResponse, StreamingResponse
 
 from .debug import ShowException
 import traceback
@@ -89,24 +88,44 @@ class Latte():
 							response = m
 
 
-					header:dict = response.get_header()
-					body:dict = response.get_body()
-
-
 					host = scope['client'][0]
 
 					for h in self.trusted_hosts:
-						if h == host or h == '*':
-							await send(header)
-							await send(body)
 
-					break
+						if h == host or h == '*':
+							if isinstance(response, StreamingResponse):
+
+								header:dict = response.get_header()
+								await send(header)
+
+								for chunk in response.stream:
+									await send({
+										'type': 'http.response.body',
+										'body': chunk,
+										'more_body': True,
+									})
+
+								await send({
+									'type': 'http.response.body',
+									'body': "",
+									'more_body': False,
+								})
+
+							else:
+
+								header:dict = response.get_header()
+								body:dict = response.get_body()
+
+								await send(header)
+								await send(body)
+
+							break
 
 
 		except Exception as e:
 
 			if self.debug == False:
-				response = TextResponse("Internal Server Error", status=500)
+				response = TextResponse(e, status=500)
 
 			else:
 				exc = ShowException(traceback.format_tb(e.__traceback__), traceback.format_stack())
