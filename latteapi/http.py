@@ -49,7 +49,6 @@ class Response():
 
 		self.set_body(self.data)
 
-
 	def set_headers(self, headers):
 		self.headers = headers
 
@@ -76,10 +75,13 @@ class Response():
 		self.headers.append(_h)
 
 
-	def set_cookie(self, key, value, expires="", max_age="", path='/', secure=""):
-		cookie = f"{key}={value}; expires={expires}; Max-Age={max_age}; Path={path}; {secure}"
-		cookie_header = (b'Set-Cookie', bytes(cookie, 'utf-8'))
+	def set_cookie(self, key, value, expires="", max_age=604800, path='/', secure=False):
+		cookie = f"{key}={value}; expires={expires}; Max-Age={max_age}; Path={path};"
 
+		if secure == True:
+			cookie += "Secure"
+
+		cookie_header = (b'Set-Cookie', bytes(cookie, 'utf-8'))
 		self.addHeader(cookie_header)
 
 
@@ -140,10 +142,13 @@ class StreamingResponse():
 		self.headers.append(_h)
 
 
-	def set_cookie(self, key, value, expires="", max_age="", path='/', secure=""):
-		cookie = f"{key}={value}; expires={expires}; Max-Age={max_age}; Path={path}; {secure}"
-		cookie_header = (b'Set-Cookie', bytes(cookie, 'utf-8'))
+	def set_cookie(self, key, value, expires="", max_age=604800, path='/', secure=False):
+		cookie = f"{key}={value}; expires={expires}; Max-Age={max_age}; Path={path};"
 
+		if secure == True:
+			cookie += "Secure"
+
+		cookie_header = (b'Set-Cookie', bytes(cookie, 'utf-8'))
 		self.addHeader(cookie_header)
 
 
