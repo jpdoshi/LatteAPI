@@ -1,4 +1,4 @@
-import mimetypes
+import mimetypes # check mimetype of file response
 
 
 class Request():
@@ -10,6 +10,20 @@ class Request():
 		self.method = scope['method']
 
 		self.path = scope['path']
+
+		self.cookies = {}
+
+		for h in scope['headers']:
+
+			if h[0] == "cookie".encode('utf-8'):
+
+				cookies_str = h[1].decode()
+				cookies = cookies_str.split("; ")
+
+				for c in cookies:
+
+					cookie = c.split("=")
+					self.cookies[cookie[0]] = cookie[1]
 
 		self.meta = scope
 
