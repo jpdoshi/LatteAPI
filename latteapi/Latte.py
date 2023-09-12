@@ -29,6 +29,8 @@ class Latte():
 		if scope['type'] == 'lifespan':
 			await self.handle_ls(scope, receive, send)
 
+		elif scope['type'] == 'websocket':
+			await self.handle_websocket(scope, receive, send)
 
 		else:
 			await self.handle_http(scope, receive, send)
@@ -36,9 +38,43 @@ class Latte():
 
 	async def handle_ls(self, scope, receive, send):
 
-		await send({'type': 'lifespan.startup.complete'})
+		await send({
+			'type': 'lifespan.startup.complete'
+		})
+
 		await receive()
-		await send({'type': 'lifespan.shutdown.complete'})
+
+		await send({
+			'type': 'lifespan.shutdown.complete'
+		})
+
+
+	async def handle_websocket(self, scope, receive, send):
+
+		await send({
+			'type': 'websocket.accept',
+			'Upgrade': 'websocket',
+			'Connection': 'Upgrade'
+		})
+
+		# send data
+		await send({
+			'type': 'websocket.send',
+			'text': "Hello!"
+		})
+
+		# receive data
+		# while True:
+		# 	message = await receive()
+		# 	if message['type'] == 'websocket.receive':
+		# 		print(str(message['text']))
+
+		# 	if message['type'] == 'websocket.disconnect':
+		# 		break
+
+		await send({
+			'type': 'websocket.close'
+		})
 
 
 	async def handle_http(self, scope, receive, send):
