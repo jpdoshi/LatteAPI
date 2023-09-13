@@ -1,8 +1,8 @@
 # import dependencies:
-from latteapi.Latte import Latte
+from latteapi import LatteAPI
 import routes
 
 
 # initialize app:
-app = Latte(debug=True)
+app = LatteAPI(debug=True)
 app.routes = routes.urls

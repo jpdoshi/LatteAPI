@@ -131,6 +131,7 @@ class StreamingResponse():
 
 
 	def get_header(self) -> dict:
+
 		return {
 			'type': 'http.response.start',
 			'status': self.status,
@@ -155,7 +156,9 @@ class StreamingResponse():
 class RedirectResponse(Response):
 
 	def __init__(self, url, data="", mime="", status: int=302):
+
 		super().__init__(bytes(data, 'utf-8'), mime, status)
+
 		super().set_headers([
 			(b'Location', bytes(url, 'utf-8')),
 		])

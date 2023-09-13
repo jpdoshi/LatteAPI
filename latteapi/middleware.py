@@ -81,26 +81,29 @@ class ResponseCompression():
     def __call__(self, response):
 
         if self.compression == 'GZIP':
+
             response.addHeader((b'Content-Encoding', b'gzip'))
             response.set_body(gzip.compress(response.data))
             return response
 
 
         if self.compression == 'DEFLATE':
+
             response.addHeader((b'Content-Encoding', b'deflate'))
             response.set_body(zlib.compress(response.data))
             return response
 
 
         if self.compression == 'BROTLI':
+
             response.addHeader((b'Content-Encoding', b'br'))
             response.set_body(brotli.compress(response.data))
             return response
 
 
-def route(url, handler) -> tuple:
+def route(url, controller) -> tuple:
 
     if url[-1] != "/":
         url = url + "/"
 
-    return (url, handler)
+    return (url, controller)
