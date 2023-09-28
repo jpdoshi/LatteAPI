@@ -1,7 +1,5 @@
-![logo](https://github.com/jpdoshi/LatteAPI/assets/122164427/27b7fae0-b53b-49fc-80fb-946aa04e8063)
-
 # LatteAPI
-Fast, Secure, Asynchronous Backend Framework
+Fast, Secure and Asynchronous Backend Framework
 
 ## Get Started
 Follow mentioned steps to get started
