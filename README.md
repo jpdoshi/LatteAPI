@@ -1,5 +1,6 @@
 # LatteAPI
-Fast, Secure and Asynchronous Backend Framework
+Fast and Secure ASGI Framework
+Full documentation at: https://latteapi.vercel.app
 
 ## Get Started
 Follow mentioned steps to get started
