@@ -51,23 +51,11 @@ class LatteAPI():
 
 	async def handle_websocket(self, scope, receive, send):
 
-		_receive = await receive()
-
 		path = scope['path']
-		parameter = None
 
 		for r in self.routes:
 			url = r[0]
 			handler = r[1]
-
-
-			if url.find(":") != -1:
-				pos = url.find(":")
-
-				if path[pos:] != "":
-					parameter = path[pos:]
-					path = path[:pos]
-					url = url[:pos]
 
 
 			if path[-1] != "/":
@@ -75,53 +63,18 @@ class LatteAPI():
 
 
 			if path == url:
-				if parameter is not None:
-					if parameter[-1] == "/":
-						parameter = parameter[:-1]
-
-					connection = None # pass parameter
-
-				else:
-					connection = None
-
 				host = scope['client'][0]
 
 				for h in self.trusted_hosts:
-					pass
 
-		# connect:
-
-		# await send({
-		# 	'type': 'websocket.accept',
-		# 	'Upgrade': 'websocket',
-		# 	'Connection': 'Upgrade',
-		# })
-
-
-		# send data:
-
-		# await send({
-		# 	'type': 'websocket.send',
-		# 	'text': "Hello!",
-		# })
-
-
-		# receive data:
-
-		# while True:
-		# 	message = await receive()
-		# 	if message['type'] == 'websocket.receive':
-		# 		print(str(message['text']))
-
-		# 	if message['type'] == 'websocket.disconnect':
-		# 		break
-
-
-		# close connection:
-
-		# await send({
-		# 	'type': 'websocket.close',
-		# })
+					if h == host or h == '*':
+						rec = await receive()
+						
+						if rec['type'] == 'websocket.accept':
+							pass
+						
+						else:
+							await handler(receive, send)
 
 
 	async def handle_http(self, scope, receive, send):
@@ -166,6 +119,7 @@ class LatteAPI():
 						response = handler(request)
 
 					if self.middlewares is not None:
+
 						for middleware in self.middlewares:
 							m = middleware(response)
 							response = m
@@ -214,10 +168,8 @@ class LatteAPI():
 				exc = ShowException(traceback.format_tb(e.__traceback__), traceback.format_stack())
 				response = exc()
 
-
 			header:dict = response.get_header()
 			body:dict = response.get_body()
-
 
 			await send(header)
 			await send(body)
