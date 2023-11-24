@@ -25,7 +25,7 @@ def instruction():
 
 	print("USAGE INSTRUCTION:")
 	print("controller <name> : Generates controller")
-	print("model      <name> : Generates model")
+	print("model <name>		 : Generates model")
 
 
 def gen_controller(controller):
@@ -41,10 +41,10 @@ def gen_controller(controller):
 				_f.write(
 f'''from latteapi.utils.responses import TextResponse, JSONResponse
 
-def {controller}(request):
+async def {controller}(request):
 	msg = "{controller} works!"
+	
 	response = TextResponse(msg)
-
 	return response
 ''')
 			print("INFO: Controller generated")

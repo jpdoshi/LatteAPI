@@ -26,14 +26,20 @@ class LatteAPI():
 
 	async def __call__(self, scope, receive, send):
 
-		if scope['type'] == 'lifespan':
-			await self.handle_ls(scope, receive, send)
+		host = scope['client'][0]
 
-		elif scope['type'] == 'websocket':
-			await self.handle_websocket(scope, receive, send)
+		for h in self.trusted_hosts:
 
-		else:
-			await self.handle_http(scope, receive, send)
+			if h == host or h == '*':
+
+				if scope['type'] == 'lifespan':
+					await self.handle_ls(scope, receive, send)
+
+				elif scope['type'] == 'websocket':
+					await self.handle_websocket(scope, receive, send)
+
+				else:
+					await self.handle_http(scope, receive, send)
 
 
 	async def handle_ls(self, scope, receive, send):
@@ -63,18 +69,14 @@ class LatteAPI():
 
 
 			if path == url:
-				host = scope['client'][0]
 
-				for h in self.trusted_hosts:
-
-					if h == host or h == '*':
-						rec = await receive()
+				rec = await receive()
 						
-						if rec['type'] == 'websocket.accept':
-							pass
+				if rec['type'] == 'websocket.accept':
+					pass
 						
-						else:
-							await handler(receive, send)
+				else:
+					handler(receive, send)
 
 
 	async def handle_http(self, scope, receive, send):
@@ -113,10 +115,10 @@ class LatteAPI():
 						if parameter[-1] == "/":
 							parameter = parameter[:-1]
 
-						response = handler(request, parameter)
+						response = await handler(request, parameter)
 
 					else:
-						response = handler(request)
+						response = await handler(request)
 
 					if self.middlewares is not None:
 
@@ -125,38 +127,33 @@ class LatteAPI():
 							response = m
 
 
-					host = scope['client'][0]
+					if isinstance(response, StreamingResponse):
 
-					for h in self.trusted_hosts:
+						header:dict = response.get_header()
+						await send(header)
 
-						if h == host or h == '*':
-							if isinstance(response, StreamingResponse):
+						for chunk in response.stream:
+							await send({
+								'type': 'http.response.body',
+								'body': chunk,
+								'more_body': True,
+							})
 
-								header:dict = response.get_header()
-								await send(header)
+						await send({
+							'type': 'http.response.body',
+							'body': "",
+							'more_body': False,
+						})
 
-								for chunk in response.stream:
-									await send({
-										'type': 'http.response.body',
-										'body': chunk,
-										'more_body': True,
-									})
+					else:
 
-								await send({
-									'type': 'http.response.body',
-									'body': "",
-									'more_body': False,
-								})
+						header:dict = response.get_header()
+						body:dict = response.get_body()
 
-							else:
+						await send(header)
+						await send(body)
 
-								header:dict = response.get_header()
-								body:dict = response.get_body()
-
-								await send(header)
-								await send(body)
-
-							break
+						break
 
 
 		except Exception as e:

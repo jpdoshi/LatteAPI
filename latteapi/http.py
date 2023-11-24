@@ -1,6 +1,3 @@
-import mimetypes # check mimetype of file response
-
-
 class Request():
 
 	def __init__(self, scope, receive):

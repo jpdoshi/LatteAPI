@@ -24,16 +24,12 @@ class ORM():
 		return self.session.query(model)
 
 
-	def update(self):
-		self.session.commit()
-
-
-	def save(self, data):
+	def save(self, model):
 		self.migrate()
-		self.session.add(data)
+		self.session.add(model)
 		self.session.commit()
 
 
-	def delete(self, data):
-		self.session.delete(data)
+	def delete(self, model):
+		self.session.delete(model)
 		self.session.commit()

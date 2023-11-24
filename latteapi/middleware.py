@@ -67,6 +67,7 @@ class CORS():
 
         if self.allow_credentials == True:
             response.addHeader((b'Access-Control-Allow-Credentials', b'true'))
+
         else:
             response.addHeader((b'Access-Control-Allow-Credentials', b'false'))
 
