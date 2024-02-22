@@ -39,7 +39,7 @@ def gen_controller(controller):
 		if not os.path.exists(_file):
 			with open(_file, 'w') as _f:
 				_f.write(
-f'''from latteapi.utils.responses import TextResponse, JSONResponse
+f'''from latteapi.http import TextResponse, JSONResponse
 
 async def {controller}(request):
 	msg = "{controller} works!"
